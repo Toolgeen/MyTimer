@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 interface Repository {
 
     fun addTimerUseCase(myTimer: MyTimer)
-    fun deleteTimerUseCase(myTimer: MyTimer)
+    fun deleteTimerUseCase(myTimerId: Int)
     fun editTimerUseCase(myTimer: MyTimer)
     fun getAllTimersUseCase() : LiveData<List<MyTimer>>
-    fun getTimerUseCase(timerId: Int)  : MyTimer
+    fun getTimerUseCase(myTimerId: Int)  : MyTimer
 }
