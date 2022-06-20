@@ -31,7 +31,7 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
         } else false
     }
 
-    fun editTimer(myTimer: MyTimer, spentTime: Int, isDone: Boolean, whenStartedTime: Int?) {
+    fun editTimer(myTimer: MyTimer, spentTime: Int, isDone: Boolean, whenStartedTime: Int) {
         val newTimer = myTimer.copy(
             spentTime = spentTime,
             isDone = isDone,
