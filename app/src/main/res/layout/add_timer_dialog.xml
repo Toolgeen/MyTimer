@@ -17,11 +17,12 @@
     <View
         android:id="@+id/divider"
         android:layout_width="1dp"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@id/tvSetTimeTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/bDecreaseMinutes"/>
 
     <Button
         android:id="@+id/bIncreaseHours"
