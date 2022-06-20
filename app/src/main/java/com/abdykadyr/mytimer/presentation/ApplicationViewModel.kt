@@ -2,8 +2,6 @@ package com.abdykadyr.mytimer.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.abdykadyr.mytimer.data.RepositoryImpl
 import com.abdykadyr.mytimer.domain.*
 
@@ -12,33 +10,42 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
 
     private val repository = RepositoryImpl(application)
 
-    private var _isHoursValid = MutableLiveData(false)
-    val isHoursValid: LiveData<Boolean>
-    get() = _isHoursValid
-
-    private var _isMinutesValid = MutableLiveData(false)
-    val isMinutesValid: LiveData<Boolean>
-        get() = _isMinutesValid
-
     private val addTimerUseCase = AddTimerUseCase(repository)
     private val deleteTimerUseCase = DeleteTimerUseCase(repository)
     private val editTimerUseCase = EditTimerUseCase(repository)
     private val getAllTimersUseCase = GetAllTimersUseCase(repository)
     private val getTimerUseCase = GetTimerUseCase(repository)
+    private val pauseTimerUseCase = GetTimerUseCase(repository)
+    private val startTimerUseCase = GetTimerUseCase(repository)
 
     fun getTimers() = getAllTimersUseCase
 
-    fun addTimer(plannedTime: Int, spentTime: Int, isDone: Boolean) {
-        addTimerUseCase(
-            MyTimer(
-                plannedTime = plannedTime,
-                spentTime = spentTime,
-                isDone = isDone
+    fun addTimer(hours: Int, minutes: Int) : Boolean {
+        return if (validateInput(hours,minutes)) {
+            addTimerUseCase(
+                MyTimer(
+                    plannedTime = (hours * 3600) + (minutes * 60)
+                )
             )
+            true
+        } else false
+    }
+
+    fun editTimer(myTimer: MyTimer, spentTime: Int, isDone: Boolean, whenStartedTime: Int?) {
+        val newTimer = myTimer.copy(
+            spentTime = spentTime,
+            isDone = isDone,
+            whenStartedTime = whenStartedTime
         )
+        editTimerUseCase(newTimer)
     }
 
     fun deleteTimer(myTimerId: Int) = deleteTimerUseCase.invoke(myTimerId)
 
     fun getTimer(myTimerId: Int) = getTimerUseCase.invoke(myTimerId)
+
+    private fun validateInput(hours: Int, minutes: Int) : Boolean {
+        return (hours>= 0) && ((minutes > 0) || (hours != 0))
+    }
+
 }

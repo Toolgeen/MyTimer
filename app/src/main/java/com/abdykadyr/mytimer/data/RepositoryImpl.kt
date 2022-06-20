@@ -30,4 +30,23 @@ class RepositoryImpl(application: Application) : Repository {
     override fun getTimerUseCase(myTimerId: Int): MyTimer {
         return mapper.myTimerDbModelToEntity(timerDao.getTimer(myTimerId))
     }
+
+    override fun startTimerUseCase(myTimer: MyTimer) {
+        val newTimer = myTimer.copy(
+            whenStartedTime = getCurrentTimeInSeconds()
+        )
+        editTimerUseCase(newTimer)
+    }
+
+    override fun pauseTimerUseCase(myTimer: MyTimer) {
+        if (myTimer.whenStartedTime != MyTimer.TIMER_ON_PAUSE) {
+            val newTimer = myTimer.copy(
+                spentTime = getCurrentTimeInSeconds() - myTimer.whenStartedTime,
+                whenStartedTime = MyTimer.TIMER_ON_PAUSE,
+            )
+            editTimerUseCase(newTimer)
+        }
+    }
+
+    private fun getCurrentTimeInSeconds() = (System.currentTimeMillis() / 1000).toInt()
 }

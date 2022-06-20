@@ -10,6 +10,7 @@ data class MyTimerDbModel(
     val id: Int,
     var plannedTime: Int,
     var spentTime: Int,
+    var whenStartedTime: Int,
     var isDone: Boolean
 
 )

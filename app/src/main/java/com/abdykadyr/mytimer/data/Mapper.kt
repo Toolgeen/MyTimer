@@ -10,6 +10,7 @@ class Mapper {
         myTimerDbModel.id,
         myTimerDbModel.plannedTime,
         myTimerDbModel.spentTime,
+        myTimerDbModel.whenStartedTime,
         myTimerDbModel.isDone
     )
 
@@ -17,6 +18,7 @@ class Mapper {
         myTimer.id,
         myTimer.plannedTime,
         myTimer.spentTime,
+        myTimer.whenStartedTime,
         myTimer.isDone
     )
 

@@ -9,4 +9,6 @@ interface Repository {
     fun editTimerUseCase(myTimer: MyTimer)
     fun getAllTimersUseCase() : LiveData<List<MyTimer>>
     fun getTimerUseCase(myTimerId: Int)  : MyTimer
+    fun startTimerUseCase(myTimer: MyTimer)
+    fun pauseTimerUseCase(myTimer: MyTimer)
 }
