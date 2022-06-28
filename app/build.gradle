@@ -37,7 +37,7 @@ android {
 
 dependencies {
 
-    def lifecycle_version = "2.4.1"
+    def lifecycle_version = "2.5.0-rc02"
     def roomVersion = "2.4.2"
 
     implementation("androidx.room:room-runtime:$roomVersion")
