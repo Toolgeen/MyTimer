@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.ViewModelFactoryDsl
-import com.abdykadyr.mytimer.R
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
-import java.lang.RuntimeException
 
 class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListener {
 
     private var _binding: FragmentMyTimerListBinding? = null
     private val binding: FragmentMyTimerListBinding
-    get() = _binding ?: throw RuntimeException("FragmentMyTimerListBinding is null")
+        get() = _binding ?: throw RuntimeException("FragmentMyTimerListBinding is null")
 
     private val viewModel by lazy {
         ViewModelProvider(this)[TimerListViewModel::class.java]
@@ -28,7 +25,7 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMyTimerListBinding.inflate(inflater,container,false)
+        _binding = FragmentMyTimerListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
