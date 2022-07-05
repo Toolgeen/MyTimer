@@ -12,9 +12,8 @@ import java.lang.RuntimeException
 class MyTimerListFragment : Fragment() {
 
     private var _binding: FragmentMyTimerListBinding? = null
-    val binding: FragmentMyTimerListBinding
+    private val binding: FragmentMyTimerListBinding
     get() = _binding ?: throw RuntimeException("FragmentMyTimerListBinding is null")
-
 
 
     override fun onCreateView(

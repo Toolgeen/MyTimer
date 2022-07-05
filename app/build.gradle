@@ -1,3 +1,9 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -39,6 +45,10 @@ dependencies {
 
     def lifecycle_version = "2.5.0-rc02"
     def roomVersion = "2.4.2"
+
+    //number picker
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+
 
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")

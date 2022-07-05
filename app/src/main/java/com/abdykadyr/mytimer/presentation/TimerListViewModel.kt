@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.abdykadyr.mytimer.data.RepositoryImpl
 import com.abdykadyr.mytimer.domain.*
 
-class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
+class TimerListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = RepositoryImpl(application)
 
