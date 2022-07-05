@@ -12,6 +12,7 @@
         android:layout_height="150dp"
         app:np_max="100"
         app:np_min="0"
+        app:np_value="0"
         app:np_textSize="15sp"/>
 
     <com.shawnlin.numberpicker.NumberPicker
@@ -20,8 +21,16 @@
         android:layout_height="150dp"
         app:np_max="59"
         app:np_min="0"
+        app:np_value="0"
         android:layout_marginStart="10dp"
         app:np_textSize="15sp"/>
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        />
 
 
 </LinearLayout>
