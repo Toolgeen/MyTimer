@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.abdykadyr.mytimer.data.RepositoryImpl
 import com.abdykadyr.mytimer.domain.*
 
-class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
+class TimerListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = RepositoryImpl(application)
 
@@ -17,7 +17,7 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     private val pauseTimerUseCase = GetTimerUseCase(repository)
     private val startTimerUseCase = GetTimerUseCase(repository)
 
-    fun getTimers() = getAllTimersUseCase
+    val timerList = getAllTimersUseCase.invoke()
 
     fun addTimer(hours: Int, minutes: Int) : Boolean {
         return if (validateInput(hours,minutes)) {

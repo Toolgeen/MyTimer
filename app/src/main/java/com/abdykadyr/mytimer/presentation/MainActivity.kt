@@ -2,7 +2,6 @@ package com.abdykadyr.mytimer.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
 import com.abdykadyr.mytimer.R
 import com.abdykadyr.mytimer.databinding.ActivityMainBinding
 
