@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tvMyTimerSpentTime"
+            android:id="@+id/tvMyTimerStatus"
             android:layout_weight="1"
             android:layout_width="0dp"
             tools:text="done"
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
+            android:id="@+id/buttonStartTimer"
             android:background="@drawable/ic_baseline_timer_24"
             android:layout_width="40dp"
             android:layout_height="40dp"/>

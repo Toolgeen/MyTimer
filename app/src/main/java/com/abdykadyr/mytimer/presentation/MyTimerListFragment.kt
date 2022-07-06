@@ -37,6 +37,16 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val timerListAdapter = TimerListAdapter()
+        binding.rvMyTimerList.adapter = timerListAdapter
+        viewModel.timerList.observe(viewLifecycleOwner) { it ->
+            it.map {
+                Log.d("TEST_LIST", "$it")
+            }
+            timerListAdapter.submitList(it)
+        }
+
+
         binding.bAddTimer.setOnClickListener {
             AddTimerDialogFragment().show(childFragmentManager, AddTimerDialogFragment.TAG)
         }

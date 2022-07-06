@@ -17,7 +17,7 @@ class TimerListViewModel(application: Application) : AndroidViewModel(applicatio
     private val pauseTimerUseCase = GetTimerUseCase(repository)
     private val startTimerUseCase = GetTimerUseCase(repository)
 
-    fun getTimers() = getAllTimersUseCase
+    val timerList = getAllTimersUseCase.invoke()
 
     fun addTimer(hours: Int, minutes: Int) : Boolean {
         return if (validateInput(hours,minutes)) {
