@@ -39,10 +39,7 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
 
         val timerListAdapter = TimerListAdapter()
         binding.rvMyTimerList.adapter = timerListAdapter
-        viewModel.timerList.observe(viewLifecycleOwner) { it ->
-            it.map {
-                Log.d("TEST_LIST", "$it")
-            }
+        viewModel.timerList.observe(viewLifecycleOwner) {
             timerListAdapter.submitList(it)
         }
 
