@@ -1,5 +1,6 @@
 package com.abdykadyr.mytimer.presentation
 
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -43,7 +44,9 @@ class TimerListAdapter :
         }
     }
 
-    private fun formatTime(time: Int): String {
-        return "${time / 3600}:${time % 3600 / 60}:${time % 60}"
+    private fun formatTime(time: Int): String
+    {
+        return DateUtils.formatElapsedTime(time.toLong())
+//        return "${time / 3600}:${time % 3600 / 60}:${time % 60}"
     }
 }
