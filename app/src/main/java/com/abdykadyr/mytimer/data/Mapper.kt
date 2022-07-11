@@ -3,8 +3,9 @@ package com.abdykadyr.mytimer.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.abdykadyr.mytimer.domain.MyTimer
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor() {
 
     fun myTimerDbModelToEntity(myTimerDbModel: MyTimerDbModel) = MyTimer(
         myTimerDbModel.id,

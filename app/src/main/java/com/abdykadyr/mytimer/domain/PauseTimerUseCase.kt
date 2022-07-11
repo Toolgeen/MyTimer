@@ -1,5 +1,7 @@
 package com.abdykadyr.mytimer.domain
 
-class PauseTimerUseCase(private val repository: Repository) {
+import javax.inject.Inject
+
+class PauseTimerUseCase @Inject constructor(private val repository: Repository) {
     operator fun invoke(myTimer: MyTimer) = repository.pauseTimerUseCase(myTimer)
 }

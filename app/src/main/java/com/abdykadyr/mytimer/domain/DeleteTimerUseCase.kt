@@ -1,5 +1,7 @@
 package com.abdykadyr.mytimer.domain
 
-class DeleteTimerUseCase(private val repository: Repository) {
+import javax.inject.Inject
+
+class DeleteTimerUseCase @Inject constructor(private val repository: Repository) {
     operator fun invoke(myTimerId: Int) = repository.deleteTimerUseCase(myTimerId)
 }
