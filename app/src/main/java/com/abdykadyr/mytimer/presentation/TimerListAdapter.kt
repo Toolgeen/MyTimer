@@ -3,6 +3,8 @@ package com.abdykadyr.mytimer.presentation
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,8 @@ import com.abdykadyr.mytimer.domain.MyTimer
 
 class TimerListAdapter :
     ListAdapter<MyTimer, TimerListAdapter.TimerItemViewHolder>(TimerDiffCallback()) {
+
+    var onStartTimerClick: ((Int) -> Unit)? = null
 
     class TimerItemViewHolder(
         val binding: MyTimerItemBinding
@@ -30,16 +34,17 @@ class TimerListAdapter :
         val myTimer = getItem(position)
         with(holder.binding) {
             tvMyTimerId.text = myTimer.id.toString()
-            tvMyTimerPlannedTime.text = formatTime((myTimer.plannedTime - myTimer.spentTime))
             tvMyTimerStatus.text = when (myTimer.isDone) {
                 true -> "done"
                 false -> ""
             }
             if (myTimer.whenStartedTime == 0) {
+                tvMyTimerPlannedTime.text = formatTime((myTimer.plannedTime - myTimer.spentTime))
                 buttonStartTimer.setBackgroundResource(R.drawable.ic_baseline_timer_24)
             } else {
                 buttonStartTimer.setBackgroundResource(R.drawable.ic_baseline_timer_off_24)
             }
+            buttonStartTimer.setOnClickListener { onStartTimerClick?.invoke(myTimer.id) }
 
         }
     }
@@ -47,6 +52,7 @@ class TimerListAdapter :
     private fun formatTime(time: Int): String
     {
         return DateUtils.formatElapsedTime(time.toLong())
-//        return "${time / 3600}:${time % 3600 / 60}:${time % 60}"
     }
+
+    private fun getCurrentTimeInSeconds() = (System.currentTimeMillis() / 1000).toInt()
 }

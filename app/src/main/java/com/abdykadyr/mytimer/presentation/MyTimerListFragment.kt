@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
+import com.abdykadyr.mytimer.domain.MyTimer
 
 class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListener {
 
@@ -38,6 +39,16 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         super.onViewCreated(view, savedInstanceState)
 
         val timerListAdapter = TimerListAdapter()
+        timerListAdapter.onStartTimerClick = {
+
+            if (isTimerStarted(viewModel.getTimer(it))) {
+                Log.d("BUTTON_START_TIMER", "PAUSED #$it")
+                viewModel.pauseTimer(it)
+            } else {
+                Log.d("BUTTON_START_TIMER", "STARTED #$it")
+                viewModel.startTimer(it)
+            }
+        }
         binding.rvMyTimerList.adapter = timerListAdapter
         viewModel.timerList.observe(viewLifecycleOwner) {
             timerListAdapter.submitList(it)
@@ -55,7 +66,6 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
     }
 
     override fun onDialogPositiveClick(hours: Int, minutes: Int) {
-        Log.d("ADD_TIMER_FRAGMENT", "hours $hours, minutes $minutes")
         viewModel.addTimer(hours, minutes)
     }
 
@@ -63,4 +73,7 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         dialog.dismiss()
     }
 
+    private fun isTimerStarted(myTimer: MyTimer) : Boolean {
+        return myTimer.whenStartedTime != 0
+    }
 }

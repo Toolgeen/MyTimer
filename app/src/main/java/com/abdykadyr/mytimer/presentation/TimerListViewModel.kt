@@ -14,8 +14,8 @@ class TimerListViewModel(application: Application) : AndroidViewModel(applicatio
     private val editTimerUseCase = EditTimerUseCase(repository)
     private val getAllTimersUseCase = GetAllTimersUseCase(repository)
     private val getTimerUseCase = GetTimerUseCase(repository)
-    private val pauseTimerUseCase = GetTimerUseCase(repository)
-    private val startTimerUseCase = GetTimerUseCase(repository)
+    private val pauseTimerUseCase = PauseTimerUseCase(repository)
+    private val startTimerUseCase = StartTimerUseCase(repository)
 
     val timerList = getAllTimersUseCase.invoke()
 
@@ -48,11 +48,11 @@ class TimerListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun startTimer(myTimerId: Int) {
-        startTimerUseCase.invoke(myTimerId)
+        startTimerUseCase.invoke(getTimer(myTimerId))
     }
 
     fun pauseTimer(myTimerId: Int) {
-        pauseTimerUseCase.invoke(myTimerId)
+        pauseTimerUseCase.invoke(getTimer(myTimerId))
     }
 
 }
