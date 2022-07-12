@@ -1,6 +1,5 @@
 package com.abdykadyr.mytimer.data
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import com.abdykadyr.mytimer.domain.MyTimer
 import com.abdykadyr.mytimer.domain.Repository
@@ -10,8 +9,6 @@ class RepositoryImpl @Inject constructor(
     private val timerDao: TimerDao,
     private val mapper: Mapper
 ) : Repository {
-
-    constructor(context: Context) : this(AppDatabase.getInstance(context).timerDao(), Mapper())
 
     override fun addTimerUseCase(myTimer: MyTimer) {
         timerDao.addTimer(mapper.myTimerEntityToDbModel(myTimer))

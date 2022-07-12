@@ -1,15 +1,16 @@
 package com.abdykadyr.mytimer.di
 
 import android.content.Context
-import androidx.fragment.app.Fragment
+import com.abdykadyr.mytimer.presentation.MyTimerListFragment
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules = [DomainModule::class, DataModule::class])
+@ApplicationScope
+@Component(modules = [DomainModule::class, DataModule::class, ViewModelModule::class])
 
 interface NewComponent {
 
-    fun inject(fragment: Fragment)
+    fun inject(fragment: MyTimerListFragment)
 
     @Component.Builder
     interface ApplicationComponentBuilder {

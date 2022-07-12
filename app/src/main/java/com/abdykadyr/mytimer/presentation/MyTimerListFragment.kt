@@ -1,6 +1,5 @@
 package com.abdykadyr.mytimer.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,26 +8,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.abdykadyr.mytimer.TimerApplication
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
-import com.abdykadyr.mytimer.di.DaggerNewComponent
-import com.abdykadyr.mytimer.di.NewComponent
 import com.abdykadyr.mytimer.domain.MyTimer
+import javax.inject.Inject
 
 class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListener {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[TimerListViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as TimerApplication).component
+    }
 
     private var _binding: FragmentMyTimerListBinding? = null
     private val binding: FragmentMyTimerListBinding
         get() = _binding ?: throw RuntimeException("FragmentMyTimerListBinding is null")
-
-    private val viewModel by lazy {
-        ViewModelProvider(this)[TimerListViewModel::class.java]
-    }
-
-    private val component : NewComponent by lazy {
-        DaggerNewComponent.builder()
-            .context(requireContext())
-            .build()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +49,6 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         component.inject(this)
         val timerListAdapter = TimerListAdapter()
         timerListAdapter.onStartTimerClick = {
-
             if (isTimerStarted(viewModel.getTimer(it))) {
                 Log.d("BUTTON_START_TIMER", "PAUSED #$it")
                 viewModel.pauseTimer(it)
