@@ -4,8 +4,9 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.abdykadyr.mytimer.domain.MyTimer
 import com.abdykadyr.mytimer.domain.Repository
+import javax.inject.Inject
 
-class RepositoryImpl(application: Application) : Repository {
+class RepositoryImpl @Inject constructor(application: Application) : Repository {
 
     private val timerDao = AppDatabase.getInstance(application).timerDao()
     private val mapper = Mapper()
