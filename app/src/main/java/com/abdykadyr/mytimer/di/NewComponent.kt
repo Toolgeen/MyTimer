@@ -11,6 +11,7 @@ interface NewComponent {
 
     fun inject(fragment: Fragment)
 
+    @Component.Builder
     interface ApplicationComponentBuilder {
 
         @BindsInstance
