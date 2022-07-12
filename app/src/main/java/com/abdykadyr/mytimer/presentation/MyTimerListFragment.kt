@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
 import com.abdykadyr.mytimer.domain.MyTimer
 
@@ -74,7 +73,7 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         dialog.dismiss()
     }
 
-    private fun isTimerStarted(myTimer: MyTimer) : Boolean {
+    private fun isTimerStarted(myTimer: MyTimer): Boolean {
         return myTimer.whenStartedTime != 0
     }
 }
