@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
+import com.abdykadyr.mytimer.di.NewComponent
 import com.abdykadyr.mytimer.domain.MyTimer
 
 class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListener {
