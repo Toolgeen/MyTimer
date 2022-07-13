@@ -1,26 +1,24 @@
 package com.abdykadyr.mytimer.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.abdykadyr.mytimer.data.RepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.abdykadyr.mytimer.domain.*
+import javax.inject.Inject
 
-class TimerListViewModel(application: Application) : AndroidViewModel(application) {
+class TimerListViewModel @Inject constructor(
+    private val addTimerUseCase: AddTimerUseCase,
+    private val deleteTimerUseCase: DeleteTimerUseCase,
+    private val editTimerUseCase: EditTimerUseCase,
+    private val getAllTimersUseCase: GetAllTimersUseCase,
+    private val getTimerUseCase: GetTimerUseCase,
+    private val pauseTimerUseCase: PauseTimerUseCase,
+    private val startTimerUseCase: StartTimerUseCase,
+) : ViewModel(
 
-    private val repository = RepositoryImpl(application)
-
-    private val addTimerUseCase = AddTimerUseCase(repository)
-    private val deleteTimerUseCase = DeleteTimerUseCase(repository)
-    private val editTimerUseCase = EditTimerUseCase(repository)
-    private val getAllTimersUseCase = GetAllTimersUseCase(repository)
-    private val getTimerUseCase = GetTimerUseCase(repository)
-    private val pauseTimerUseCase = GetTimerUseCase(repository)
-    private val startTimerUseCase = GetTimerUseCase(repository)
-
+) {
     val timerList = getAllTimersUseCase.invoke()
 
-    fun addTimer(hours: Int, minutes: Int) : Boolean {
-        return if (validateInput(hours,minutes)) {
+    fun addTimer(hours: Int, minutes: Int): Boolean {
+        return if (validateInput(hours, minutes)) {
             addTimerUseCase(
                 MyTimer(
                     plannedTime = (hours * 3600) + (minutes * 60)
@@ -43,16 +41,16 @@ class TimerListViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun getTimer(myTimerId: Int) = getTimerUseCase.invoke(myTimerId)
 
-    private fun validateInput(hours: Int, minutes: Int) : Boolean {
-        return (hours>= 0) && ((minutes > 0) || (hours != 0))
+    private fun validateInput(hours: Int, minutes: Int): Boolean {
+        return (hours >= 0) && ((minutes > 0) || (hours != 0))
     }
 
     fun startTimer(myTimerId: Int) {
-        startTimerUseCase.invoke(myTimerId)
+        startTimerUseCase.invoke(getTimer(myTimerId))
     }
 
     fun pauseTimer(myTimerId: Int) {
-        pauseTimerUseCase.invoke(myTimerId)
+        pauseTimerUseCase.invoke(getTimer(myTimerId))
     }
 
 }

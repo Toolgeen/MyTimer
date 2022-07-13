@@ -43,13 +43,17 @@ android {
 
 dependencies {
 
-    def lifecycle_version = "2.5.0-rc02"
+    def lifecycle_version = "2.6.0-alpha01"
     def roomVersion = "2.4.2"
 
     //number picker
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 
+    //dagger 2
+    implementation 'com.google.dagger:dagger:2.40'
+    kapt 'com.google.dagger:dagger-compiler:2.40'
 
+    
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin annotation processing tool (kapt)

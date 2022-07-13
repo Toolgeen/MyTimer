@@ -8,17 +8,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.abdykadyr.mytimer.TimerApplication
 import com.abdykadyr.mytimer.databinding.FragmentMyTimerListBinding
+import com.abdykadyr.mytimer.domain.MyTimer
+import javax.inject.Inject
 
 class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListener {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[TimerListViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as TimerApplication).component
+    }
 
     private var _binding: FragmentMyTimerListBinding? = null
     private val binding: FragmentMyTimerListBinding
         get() = _binding ?: throw RuntimeException("FragmentMyTimerListBinding is null")
-
-    private val viewModel by lazy {
-        ViewModelProvider(this)[TimerListViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +46,17 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        component.inject(this)
         val timerListAdapter = TimerListAdapter()
+        timerListAdapter.onStartTimerClick = {
+            if (isTimerStarted(viewModel.getTimer(it))) {
+                Log.d("BUTTON_START_TIMER", "PAUSED #$it")
+                viewModel.pauseTimer(it)
+            } else {
+                Log.d("BUTTON_START_TIMER", "STARTED #$it")
+                viewModel.startTimer(it)
+            }
+        }
         binding.rvMyTimerList.adapter = timerListAdapter
         viewModel.timerList.observe(viewLifecycleOwner) {
             timerListAdapter.submitList(it)
@@ -55,7 +74,6 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
     }
 
     override fun onDialogPositiveClick(hours: Int, minutes: Int) {
-        Log.d("ADD_TIMER_FRAGMENT", "hours $hours, minutes $minutes")
         viewModel.addTimer(hours, minutes)
     }
 
@@ -63,4 +81,7 @@ class MyTimerListFragment : Fragment(), AddTimerDialogFragment.NoticeDialogListe
         dialog.dismiss()
     }
 
+    private fun isTimerStarted(myTimer: MyTimer): Boolean {
+        return myTimer.whenStartedTime != 0
+    }
 }
